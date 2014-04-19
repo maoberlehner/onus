@@ -1,0 +1,12 @@
+{
+  "name": "onus",
+  "version": "1.0.0",
+  "author": "Markus Oberlehner",
+  "license": "GPL v2",
+  "devDependencies": {
+    "gulp": "~3.5.5",
+    "gulp-uglify": "~0.2.1",
+    "gulp-rename": "~1.2.0",
+    "gulp-jshint": "~1.5.0"
+  }
+}
