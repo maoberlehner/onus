@@ -66,7 +66,7 @@
       // Load the content
       $tmp.load(self.element.href + ' ' + self.settings.anchor, function () {
         // Insert the content after the spinner and remove the spinner
-        var $ajax_content = $tmp.find(self.settings.anchor);
+        var $ajax_content = $($tmp.find(self.settings.anchor).html());
         self.settings.$spinner
           .after($ajax_content)
           .remove();
