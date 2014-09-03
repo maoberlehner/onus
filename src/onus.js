@@ -12,7 +12,7 @@
       'min-width: 36em'
     ],
     anchor: '#main-content',
-    $spinner: $('<div class="spinner" />')
+    $spinner: $('<span class="spinner" />')
   };
 
   function Plugin(element, options) {
