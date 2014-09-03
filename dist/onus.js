@@ -22,10 +22,8 @@
     this.settings = $.extend(
       {},
       defaults,
-      options,
-      $(this.element).data('onusOptions')
+      options
     );
-
     this._defaults = defaults;
     this._name = pluginName;
 
@@ -53,12 +51,12 @@
     loadContent: function () {
       var $tmp = $('<div id="onus-tmp" />');
 
-      // add spinner loading animation
+      // Add spinner loading animation
       self.$element.after(self.settings.$spinner).remove();
 
-      // load the content
+      // Load the content
       $tmp.load(self.element.href + ' ' + self.settings.anchor, function () {
-        // insert the content after the spinner and remove the spinner
+        // Insert the content after the spinner and remove the spinner
         self.settings.$spinner
           .after($tmp.find(self.settings.anchor).html())
           .remove();
