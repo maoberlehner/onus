@@ -3,14 +3,14 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var jshint = require('gulp-jshint');
 
-// Lint Task
+// Lint
 gulp.task('lint', function () {
   gulp.src('src/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });
 
-// Compress Task
+// Compress
 gulp.task('compress', function () {
   gulp.src('src/*.js')
     .pipe(gulp.dest('dist/'))
@@ -21,13 +21,12 @@ gulp.task('compress', function () {
     .pipe(gulp.dest('dist/'))
 });
 
-// Watch Task
+// Watch
 gulp.task('watch', function () {
-  // Watch .js files
   gulp.watch('src/*.js', ['lint', 'compress']);
 });
 
 // Default Task
 gulp.task('default', function () {
-  gulp.start('lint', 'compress');
+  gulp.start('watch');
 });
