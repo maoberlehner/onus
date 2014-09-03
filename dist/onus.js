@@ -1,7 +1,6 @@
 /**
  * TODO
  * maybe use localStorage + caching system
- * add function to load only when visible (onscroll)
  */
 ;(function ($, window, document, undefined) {
 
@@ -12,8 +11,14 @@
       'min-width: 36em'
     ],
     anchor: '#main-content',
+    inViewportThreshold: 0,
     $spinner: $('<span class="spinner" />')
   };
+  var loaded = false;
+  var mq_string;
+  var lastScrollY = $(window).scrollTop();
+  var ticking = false;
+
 
   function Plugin(element, options) {
     this.element = element;
@@ -33,34 +38,54 @@
 
   Plugin.prototype = {
     init: function () {
-      var mq_string = '(' + self.settings.matchMedia[0] + ')';
+      mq_string = '(' + self.settings.matchMedia[0] + ')';
 
       $.each(self.settings.matchMedia.slice(1), function () {
         mq_string += ' and (' + this + ')';
       });
 
-      if (window.matchMedia(mq_string).matches) {
-        self.loadContent();
-      }
+      $(window).on('load scroll', self.onScroll);
 
       self.$element.on('click', function (e) {
         e.preventDefault();
         self.loadContent();
       });
     },
+    observer: function () {
+      if (!loaded && window.matchMedia(mq_string).matches && self.inViewport()) {
+        self.loadContent();
+      }
+      ticking = false;
+    },
     loadContent: function () {
       var $tmp = $('<div id="onus-tmp" />');
-
+      loaded = true;
       // Add spinner loading animation
       self.$element.after(self.settings.$spinner).remove();
 
       // Load the content
       $tmp.load(self.element.href + ' ' + self.settings.anchor, function () {
         // Insert the content after the spinner and remove the spinner
+        var $ajax_content = $tmp.find(self.settings.anchor);
         self.settings.$spinner
-          .after($tmp.find(self.settings.anchor).html())
+          .after($ajax_content)
           .remove();
+        $(window).trigger('onus-content-loaded', $ajax_content);
       });
+    },
+    inViewport: function () {
+      var fold = $(window).height() + lastScrollY;
+      return fold >= self.$element.offset().top - self.settings.inViewportThreshold;
+    },
+    requestTick: function() {
+      if (!ticking) {
+        window.requestAnimationFrame(self.observer);
+        ticking = true;
+      }
+    },
+    onScroll: function() {
+      lastScrollY = $(window).scrollTop();
+      self.requestTick();
     }
   };
 
