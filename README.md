@@ -1,11 +1,12 @@
 # onus
-Conditionally load content  
-https://github.com/maoberlehner/onus
+Conditionally load content.
 
-### License
-onus is licensed under GPL v2 (http://www.gnu.org/licenses/gpl-2.0.html)
+## About
+Github: https://github.com/maoberlehner/onus
 
 ### Author
 Markus Oberlehner  
-Twitter: https://twitter.com/MaOberlehner  
-Work: Web Developer @ roromedia - http://www.roromedia.com
+Twitter: https://twitter.com/MaOberlehner
+
+### License
+GPL v2 (http://www.gnu.org/licenses/gpl-2.0.html)
